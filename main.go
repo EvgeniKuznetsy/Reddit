@@ -27,10 +27,13 @@ func main() {
 	runServer(serverInstance, handlear)
 
 }
-func runServer(serverInstance *Server, handler *heandlears.Handler) {
+func runServer(serverInstance *Server, handlear *heandlears.Handler) {
 	port := "8080"
-	router:=heandlears.GetRouter()
-	if err:=serverInstance.Run(port,router):err
+	router := heandlears.GetRouter()
+	if err := serverInstance.Run(port, router); err != nil {
+		log.Fatal(err.Error())
+	}
+	log.Print("server started")
 }
 
 //func runServer(serverInstance <Server>,heandlears *heandler.Handler) name()  {

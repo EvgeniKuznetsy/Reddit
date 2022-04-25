@@ -12,7 +12,7 @@ type Handler struct {
 func NewHandler(service *services.Service) *Handler {
 	return &Handler{service: service}
 }
-func (h Handler) initRouters() *gin.Engine {
+func GetRouter() *gin.Engine {
 	router := gin.Default()
 	api := router.Group("/api")
 	{
