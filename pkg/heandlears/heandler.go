@@ -12,14 +12,19 @@ type Handler struct {
 func NewHandler(service *services.Service) *Handler {
 	return &Handler{service: service}
 }
-func GetRouter() *gin.Engine {
+func (h Handler) GetRouter() *gin.Engine {
 	router := gin.Default()
 	api := router.Group("/api")
 	{
 
 		posts := api.Group("/post")
 		{
-			posts.GET("/:item_id")
+			posts.GET("/:item_id", h.GetPostById)
+			posts.GET("/:page/:limit", h.GetList)
+			posts.POST("", h.Create)
+			posts.POST("", h.Create)
+			posts.PUT("", h.Update)
+			posts.DELETE("", h.Delete)
 		}
 	}
 	return router

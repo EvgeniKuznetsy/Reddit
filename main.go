@@ -29,7 +29,7 @@ func main() {
 }
 func runServer(serverInstance *Server, handlear *heandlears.Handler) {
 	port := "8080"
-	router := heandlears.GetRouter()
+	router := handlear.GetRouter()
 	if err := serverInstance.Run(port, router); err != nil {
 		log.Fatal(err.Error())
 	}

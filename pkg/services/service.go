@@ -6,10 +6,10 @@ import (
 )
 
 type Post interface {
-	GetById(id string) (models.Post, error)
-	GetList(page int, limit int) (models.OutputPostList, error)
-	Create(post models.InputPost) (models.OutPost, error)
-	Update(post models.InputUpdatesPost) error
+	GetById(id string) (*models.Post, error)
+	GetList(page int, limit int) (*models.OutputPostList, error)
+	Create(post *models.InputPost) (*models.OutPost, error)
+	Update(post *models.InputUpdatesPost) error
 	Delete(id string) error
 }
 type Service struct {

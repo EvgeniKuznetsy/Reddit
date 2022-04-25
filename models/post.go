@@ -5,11 +5,12 @@ import (
 )
 
 type Post struct {
-	Id         string
-	Author     string
-	Caption    string
-	Body       string
-	CreateDate time.Time
+	Id         string    `json:"id" db:"id"`
+	Author     string    `json:"author" db:"author"`
+	Caption    string    `json:"caption" db:"Caption"`
+	Body       string    `json:"body" db:"Body"`
+	CreateDate time.Time `json:"create_date" db:"create_date"`
+	Delated    bool      `json:"" db:"delated"`
 }
 type OutputPostList struct {
 	Post       []Post
