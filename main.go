@@ -35,7 +35,3 @@ func runServer(serverInstance *Server, handlear *heandlears.Handler) {
 	}
 	log.Print("server started")
 }
-
-//func runServer(serverInstance <Server>,heandlears *heandler.Handler) name()  {
-//
-//}

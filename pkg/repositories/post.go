@@ -14,6 +14,10 @@ type PostPostgres struct {
 	db *sqlx.DB
 }
 
+func NewPostPostgres(db *sqlx.DB) *PostPostgres {
+	return &PostPostgres{db: db}
+}
+
 func (r *PostPostgres) GetById(id string) (*models.Post, error) {
 	var post *models.Post
 
@@ -83,9 +87,9 @@ func (r *PostPostgres) Update(post *models.InputUpdatesPost) error {
 }
 
 func (r *PostPostgres) Delete(id string) error {
-
-}
-
-func NewPostPostgres(db *sqlx.DB) *PostPostgres {
-	return &PostPostgres{db: db}
+	_, err := r.db.Query(`UPDATE"Post" SET delete_at=true WHERE id=$1`, id)
+	if err != nil {
+		return err
+	}
+	return nil
 }

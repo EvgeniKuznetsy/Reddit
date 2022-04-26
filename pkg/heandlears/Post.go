@@ -64,13 +64,14 @@ func (h *Handler) Create(c *gin.Context) {
 	c.JSON(http.StatusOK, output)
 
 }
-func (h *Handler) Update() (c *gin.Context) {
+func (h *Handler) Update(c *gin.Context) {
 	var input models.InputUpdatesPost
-	id := c.Param("iteam_id")
+	id := c.Param("item_id")
 	if id == "" {
 		sendHttpError(c)
 		return
 	}
+	input.Id = id
 	if err := c.BindJSON(&input); err != nil {
 		sendHttpError(c)
 		return
@@ -83,8 +84,8 @@ func (h *Handler) Update() (c *gin.Context) {
 	c.Status(http.StatusOK)
 	return
 }
-func (h *Handler) Delete() (c *gin.Context) {
-	id := c.Param(("inteam_id"))
+func (h *Handler) Delete(c *gin.Context) {
+	id := c.Param("item_id")
 	if id == "" {
 		sendHttpError(c)
 		return

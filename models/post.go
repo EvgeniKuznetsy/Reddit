@@ -29,4 +29,5 @@ type OutPost struct {
 type InputUpdatesPost struct {
 	Caption string
 	Body    string
+	Id      string
 }
