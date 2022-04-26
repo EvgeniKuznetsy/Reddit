@@ -5,12 +5,12 @@ import (
 )
 
 type Post struct {
-	Id         string    `json:"id" db:"id"`
+	Id         string    `json:"id" db:"iteam_id"`
 	Author     string    `json:"author" db:"author"`
 	Caption    string    `json:"caption" db:"Caption"`
 	Body       string    `json:"body" db:"Body"`
 	CreateDate time.Time `json:"create_date" db:"create_date"`
-	Delated    bool      `json:"" db:"delated"`
+	Delated    bool      `json:"" db:"deleted"`
 }
 type OutputPostList struct {
 	Post       []Post
@@ -18,9 +18,9 @@ type OutputPostList struct {
 }
 
 type InputPost struct {
-	Author  string
-	Caption string
-	Body    string
+	Author  string `binding:"requiring"`
+	Caption string `binding:"requiring"`
+	Body    string `binding:"requiring"`
 }
 type OutPost struct {
 	Id         string

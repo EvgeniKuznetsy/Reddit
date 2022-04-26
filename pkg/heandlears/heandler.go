@@ -22,7 +22,6 @@ func (h Handler) GetRouter() *gin.Engine {
 			posts.GET("/:item_id", h.GetPostById)
 			posts.GET("/:page/:limit", h.GetList)
 			posts.POST("", h.Create)
-			posts.POST("", h.Create)
 			posts.PUT("", h.Update)
 			posts.DELETE("", h.Delete)
 		}
