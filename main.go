@@ -10,12 +10,12 @@ import (
 func main() {
 	serverInstance := new(Server)
 	postgresConfing := repositories.Confing{
-		Host:     "",
-		Port:     "",
-		Username: "",
-		Password: "",
-		DBName:   "",
-		SSLMode:  "",
+		Host:     "localhost",
+		Port:     "5432",
+		Username: "postgres",
+		Password: "12",
+		DBName:   "Reddit",
+		SSLMode:  "disable",
 	}
 	database, err := repositories.NewPostgresDB(postgresConfing)
 	if err != nil {

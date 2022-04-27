@@ -5,7 +5,7 @@ import (
 )
 
 type Post struct {
-	Id         string    `json:"id" db:"iteam_id"`
+	Id         string    `json:"id" db:"item_id"`
 	Author     string    `json:"author" db:"author"`
 	Caption    string    `json:"caption" db:"Caption"`
 	Body       string    `json:"body" db:"Body"`
@@ -18,9 +18,9 @@ type OutputPostList struct {
 }
 
 type InputPost struct {
-	Author  string `binding:"requiring"`
-	Caption string `binding:"requiring"`
-	Body    string `binding:"requiring"`
+	Author  string `binding:"required"`
+	Caption string `binding:"required"`
+	Body    string `binding:"required"`
 }
 type OutPost struct {
 	Id         string
@@ -30,4 +30,9 @@ type InputUpdatesPost struct {
 	Caption string
 	Body    string
 	Id      string
+}
+
+type UriGetPostList struct {
+	Page  string `uri:"page"`
+	Limit string `uri:"limit"`
 }

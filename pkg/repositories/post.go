@@ -29,8 +29,7 @@ func (r *PostPostgres) GetById(id string) (*models.Post, error) {
 }
 
 func (r *PostPostgres) GetList(page int, limit int) (*models.OutputPostList, error) {
-	//TODO implement me
-	panic("implement me")
+
 	var output models.OutputPostList
 	if err := r.db.Select(&output.Post, `select * from "Post" where deleted=false 
                      order by create_date desc limit $1 offset $2`,
@@ -51,7 +50,7 @@ func (r *PostPostgres) Create(post *models.InputPost) (*models.OutPost, error) {
 		return nil, errors.New("generate void invalid")
 	}
 	timeNow := time.Now()
-	_, err := r.db.Query(`insert into "Post"(id,author,caption,body,create_at,delete_at),
+	_, err := r.db.Query(`insert into "Post"(id,author,caption,body,create_date,deleted)
 	values($1,$2,$3,$4,$5,$6)`, id, post.Author, post.Body, post.Caption, timeNow, false)
 	if err != nil {
 		return nil, err
