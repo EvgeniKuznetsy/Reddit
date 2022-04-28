@@ -1,8 +1,8 @@
-package services
+package service
 
 import (
 	"Reddit/models"
-	"Reddit/pkg/repositories"
+	"Reddit/pkg/repository"
 )
 
 type Post interface {
@@ -12,12 +12,19 @@ type Post interface {
 	Update(post *models.InputUpdatesPost) error
 	Delete(id string) error
 }
+
+type Auth interface {
+	SigIn(input *models.InputSingIn) (*models.OutPutIn, error)
+	SigUp(input *models.InputSinUp) (*models.OutPutUp, error)
+}
 type Service struct {
 	Post Post
+	Auth Auth
 }
 
-func NewService(repos *repositories.Repositories) *Service {
+func NewService(repos *repository.Repositories) *Service {
 	return &Service{
 		Post: NewPostService(repos.Post),
+		Auth: NewAuthService(repos.Auth),
 	}
 }

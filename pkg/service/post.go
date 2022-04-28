@@ -1,15 +1,15 @@
-package services
+package service
 
 import (
 	"Reddit/models"
-	"Reddit/pkg/repositories"
+	"Reddit/pkg/repository"
 )
 
 type PostService struct {
-	repo repositories.Post
+	repo repository.Post
 }
 
-func NewPostService(repo repositories.Post) *PostService {
+func NewPostService(repo repository.Post) *PostService {
 	return &PostService{repo: repo}
 }
 func (s *PostService) GetById(id string) (*models.Post, error) {

@@ -1,4 +1,4 @@
-package repositories
+package repository
 
 import (
 	"Reddit/models"
@@ -13,13 +13,19 @@ type Post interface {
 	Update(post *models.InputUpdatesPost) error
 	Delete(id string) error
 }
+type Auth interface {
+	SignIn(input *models.InputSingIn) (*models.OutPutIn, error)
+	SignUp(input *models.InputSinUp) (*models.OutPutIn, error)
+}
 
 type Repositories struct {
 	Post Post
+	Auth Auth
 }
 
 func NewRepositories(db *sqlx.DB) *Repositories {
 	return &Repositories{
 		Post: NewPostPostgres(db),
+		Auth: NewAuthPostgres(db),
 	}
 }

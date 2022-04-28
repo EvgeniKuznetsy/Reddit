@@ -1,15 +1,15 @@
-package heandlears
+package handler
 
 import (
-	"Reddit/pkg/services"
+	"Reddit/pkg/service"
 	"github.com/gin-gonic/gin"
 )
 
 type Handler struct {
-	service *services.Service
+	service *service.Service
 }
 
-func NewHandler(service *services.Service) *Handler {
+func NewHandler(service *service.Service) *Handler {
 	return &Handler{service: service}
 }
 func (h Handler) GetRouter() *gin.Engine {
