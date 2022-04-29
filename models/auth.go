@@ -3,6 +3,7 @@ package models
 import (
 	"errors"
 	"fmt"
+	"strings"
 )
 
 type InputSinUp struct {
@@ -20,6 +21,10 @@ func (i *InputSinUp) IsValid() error {
 		return errors.New(fmt.Sprintf("login min length %d symbols", MinPasswordLength))
 	}
 
+	if strings.Contains(i.Login, "@") {
+		return errors.New(`login have forbidden symbol "@"`)
+	}
+
 	if len(i.Password) < MinPasswordLength {
 		return errors.New(fmt.Sprintf("password min length %d symbols", MinPasswordLength))
 	}
@@ -31,10 +36,23 @@ type OutPutUp struct {
 	Session string `json:"session"`
 }
 type InputSingIn struct {
-	Login    string
-	Password string
+	Identifier string
+	Password   string
 }
+
+func (i *InputSingIn) Validate() error {
+	if i.Identifier == "" {
+		return errors.New("login required")
+	}
+
+	if i.Password == "" {
+		return errors.New("password required")
+	}
+
+	return nil
+}
+
 type OutPutIn struct {
 	Session string `json:"session"`
-	Account string `json:"account"`
+	Account string `json:"	Account"`
 }

@@ -15,7 +15,7 @@ type Post interface {
 }
 type Auth interface {
 	SignIn(input *models.InputSingIn) (*models.OutPutIn, error)
-	SignUp(input *models.InputSinUp) (*models.OutPutIn, error)
+	SignUp(input *models.InputSinUp) (*models.OutPutUp, error)
 }
 
 type Repositories struct {
@@ -25,7 +25,7 @@ type Repositories struct {
 
 func NewRepositories(db *sqlx.DB) *Repositories {
 	return &Repositories{
-		Post: NewPostPostgres(db),
-		Auth: NewAuthPostgres(db),
+		NewPostPostgres(db),
+		NewAuthPostgres(db),
 	}
 }
