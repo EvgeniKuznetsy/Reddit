@@ -3,6 +3,7 @@ package repository
 import (
 	"Reddit/models"
 	"github.com/jmoiron/sqlx"
+
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -19,23 +20,18 @@ func (a *AuthPostgres) SignIn(input *models.InputSingIn) (*models.OutPutIn, erro
 		input.Identifier); err != nil {
 		return nil, err
 	}
+	account.Permissions = "admin, moderator, user"
 
 	if err := bcrypt.CompareHashAndPassword([]byte(account.Password), []byte(input.Password)); err != nil {
 		return nil, err
 	}
 
-	sessionHash, err := a.session.Generate(account.Login)
-	if err != nil {
-		return nil, err
-	}
-
-	output.Session = sessionHash
 	output.Account = account
 
 	return &output, nil
 }
 
-func (a *AuthPostgres) SignUp(input *models.InputSinUp) (*models.OutPutIn, error) {
+func (a *AuthPostgres) SignUp(input *models.InputSinUp) (*models.OutPutUp, error) {
 	var output models.OutPutUp
 
 	passwordHash, err := getPasswordHash(input.Password)

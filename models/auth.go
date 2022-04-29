@@ -53,6 +53,7 @@ func (i *InputSingIn) Validate() error {
 }
 
 type OutPutIn struct {
-	Session string `json:"session"`
-	Account string `json:"	Account"`
+	Session string  `json:"session"`
+	Account Account `json:"	Account"`
+	Token   string  `json:"token"`
 }
