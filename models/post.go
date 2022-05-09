@@ -5,9 +5,9 @@ import (
 )
 
 type Post struct {
-	Id         string    `json:"id" db:"item_id"`
+	Id         string    `json:"id" db:"id"`
 	Author     string    `json:"author" db:"author"`
-	Caption    string    `json:"caption" db:"Caption"`
+	Caption    string    `json:"caption" db:"caption"`
 	Body       string    `json:"body" db:"body"`
 	CreateDate time.Time `json:"create_date" db:"create_date"`
 	Deleted    bool      `json:"-" db:"deleted"`
@@ -22,7 +22,7 @@ type InputPost struct {
 	Caption string `binding:"required"`
 	Body    string `binding:"required"`
 }
-type OutPost struct {
+type OutputPost struct {
 	Id         string
 	CreateDate time.Time
 }

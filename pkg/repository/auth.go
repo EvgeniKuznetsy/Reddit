@@ -7,15 +7,20 @@ import (
 )
 
 type AuthPostgres struct {
-	db      *sqlx.DB
-	session *SessionPostgres
+	db *sqlx.DB
 }
 
-func (a *AuthPostgres) SignIn(input *models.InputSingIn) (*models.OutPutIn, error) {
-	var output models.OutPutIn
+const (
+	AccountRoleAdmin     = "admin"
+	AccountRoleModerator = "moderator"
+	AccountRoleUser      = "user"
+)
+
+func (r *AuthPostgres) SignIn(input *models.InputSignIn) (*models.OutPutSignIn, error) {
+	var output models.OutPutSignIn
 	var account models.Account
 
-	if err := a.db.Get(&account, `select * from "Account" where login=$1 or email=$1`,
+	if err := r.db.Get(&account, `select * from "Account" where login=$1 or email=$1`,
 		input.Identifier); err != nil {
 		return nil, err
 	}
@@ -24,7 +29,7 @@ func (a *AuthPostgres) SignIn(input *models.InputSingIn) (*models.OutPutIn, erro
 		return nil, err
 	}
 
-	sessionHash, err := a.session.Generate(account.Login)
+	sessionHash, err := r.session.Generate(account.Login)
 	if err != nil {
 		return nil, err
 	}
@@ -35,27 +40,20 @@ func (a *AuthPostgres) SignIn(input *models.InputSingIn) (*models.OutPutIn, erro
 	return &output, nil
 }
 
-func (a *AuthPostgres) SignUp(input *models.InputSinUp) (*models.OutPutIn, error) {
-	var output models.OutPutUp
+func (r *AuthPostgres) SignUp(input *models.InputSignUp) (*models.OutPutSignIn, error) {
 
 	passwordHash, err := getPasswordHash(input.Password)
 	if err != nil {
 		return nil, err
 	}
 
-	_, err = a.db.Query(`insert into "Account" (login, password, name, email) 
-		values ($1, $2, $3, $4)`, input.Login, passwordHash, input.Name, input.Email)
+	_, err = r.db.Query(`insert into "Account" (login, password, name, email,role,create_date) 
+		values ($1, $2, $3, $4,5,current_timestamp )`, input.Login, passwordHash, input.Name, input.Email, AccountRoleUser)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	sessionHash, err := a.session.Generate(input.Login)
-	if err != nil {
-		return nil, err
-	}
-
-	output.Session = sessionHash
-	return &output, nil
+	return nil
 
 }
 func getPasswordHash(password string) ([]byte, error) {
@@ -63,7 +61,7 @@ func getPasswordHash(password string) ([]byte, error) {
 }
 
 func NewAuthPostgres(db *sqlx.DB) *AuthPostgres {
-	return &AuthPostgres{db: db,
-		session: NewSessionPostgres(db),
+	return &AuthPostgres{
+		db: db,
 	}
 }

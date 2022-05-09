@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-type InputSinUp struct {
+type InputSignUp struct {
 	Login    string `binding:"required"`
 	Password string `binding:"required"`
 	Name     string `binding:"required"`
@@ -16,7 +16,7 @@ type InputSinUp struct {
 const MinPasswordLength = 8
 const MinLoginLength = 6
 
-func (i *InputSinUp) IsValid() error {
+func (i *InputSignUp) IsValid() error {
 	if len(i.Login) < MinLoginLength {
 		return errors.New(fmt.Sprintf("login min length %d symbols", MinPasswordLength))
 	}
@@ -32,15 +32,15 @@ func (i *InputSinUp) IsValid() error {
 	return nil
 }
 
-type OutPutUp struct {
+type OutPutSignUp struct {
 	Session string `json:"session"`
 }
-type InputSingIn struct {
+type InputSignIn struct {
 	Identifier string
 	Password   string
 }
 
-func (i *InputSingIn) Validate() error {
+func (i *InputSignIn) Validate() error {
 	if i.Identifier == "" {
 		return errors.New("login required")
 	}
@@ -52,7 +52,7 @@ func (i *InputSingIn) Validate() error {
 	return nil
 }
 
-type OutPutIn struct {
-	Session string `json:"session"`
-	Account string `json:"	Account"`
+type OutPutSignIn struct {
+	Session string  `json:"session"`
+	Account Account `json:"	Account"`
 }

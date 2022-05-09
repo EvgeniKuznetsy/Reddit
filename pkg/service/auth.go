@@ -13,10 +13,10 @@ func NewAuthService(repo repository.Auth) *AuthService {
 	return &AuthService{repo: repo}
 }
 
-func (s *AuthService) SigIn(input *models.InputSingIn) (*models.OutPutIn, error) {
+func (s *AuthService) SignIn(input *models.InputSignIn) (*models.OutPutSignIn, error) {
 	return s.repo.SignIn(input)
 }
 
-func (s *AuthService) SigUp(input *models.InputSinUp) (*models.OutPutUp, error) {
+func (s *AuthService) SignUp(input *models.InputSignUp) (*models.OutPutSignUp, error) {
 	return s.repo.SignUp(input)
 }

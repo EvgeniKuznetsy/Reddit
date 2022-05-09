@@ -14,8 +14,8 @@ type Post interface {
 	Delete(id string) error
 }
 type Auth interface {
-	SignIn(input *models.InputSingIn) (*models.OutPutIn, error)
-	SignUp(input *models.InputSinUp) (*models.OutPutUp, error)
+	SignIn(input *models.InputSignIn) (*models.OutPutSignIn, error)
+	SignUp(input *models.InputSignUp) (*models.OutPutSignUp, error)
 }
 
 type Repositories struct {
