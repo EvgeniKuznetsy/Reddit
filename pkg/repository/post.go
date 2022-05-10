@@ -44,7 +44,7 @@ func (r *PostPostgres) GetList(page int, limit int) (*models.OutputPostList, err
 	return &output, nil
 }
 
-func (r *PostPostgres) Create(post *models.InputPost) (*models.OutPost, error) {
+func (r *PostPostgres) Create(post *models.InputPost) (*models.OutputPost, error) {
 	id := uuid.New().String()
 	if id == "" {
 		return nil, errors.New("generate void invalid")
@@ -55,7 +55,7 @@ func (r *PostPostgres) Create(post *models.InputPost) (*models.OutPost, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &models.OutPost{
+	return &models.OutputPost{
 		Id:         id,
 		CreateDate: timeNow,
 	}, nil

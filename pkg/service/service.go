@@ -18,13 +18,21 @@ type Auth interface {
 	SignUp(input *models.InputSignUp) (*models.OutPutSignUp, error)
 }
 type Service struct {
-	Post Post
-	Auth Auth
+	Post          Post
+	Auth          Auth
+	Session       Session
+	RecoverAccess RecoverAccess
+}
+
+type RecoverAccess interface {
+	GenerateLink(link *models.InputRecoverAccessLink) error
 }
 
 func NewService(repos *repository.Repositories) *Service {
 	return &Service{
-		Post: NewPostService(repos.Post),
-		Auth: NewAuthService(repos.Auth),
+		Post:          NewPostService(repos.Post),
+		Auth:          NewAuthService(repos.Auth),
+		Session:       NewSessionService(repos.Session),
+		RecoverAccess: NewRecoverAccessService(repos.RecoverAccess),
 	}
 }
