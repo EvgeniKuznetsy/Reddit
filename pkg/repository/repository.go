@@ -34,8 +34,8 @@ type Repositories struct {
 
 func NewRepositories(db *sqlx.DB) *Repositories {
 	return &Repositories{
-		NewPostPostgres(db),
-		NewAuthPostgres(db),
+		Post:          NewPostPostgres(db),
+		Auth:          NewAuthPostgres(db),
 		Session:       NewSessionPostgres(db),
 		RecoverAccess: NewRecoverAccessPostgres(db),
 	}

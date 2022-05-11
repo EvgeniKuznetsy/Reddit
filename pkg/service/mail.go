@@ -3,6 +3,7 @@ package service
 import (
 	"Reddit/models"
 	"fmt"
+	"gopkg.in/gomail.v2"
 )
 
 const sender = "it-college-test-mail@yandex.ru"

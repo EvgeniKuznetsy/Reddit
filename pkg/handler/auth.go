@@ -7,7 +7,7 @@ import (
 )
 
 func (h *Handler) SignIn(c *gin.Context) {
-	var input models.InputSingIn
+	var input models.InputSignIn
 
 	if err := c.BindJSON(&input); err != nil {
 		sendBadRequestMessage(c, err)
@@ -15,11 +15,11 @@ func (h *Handler) SignIn(c *gin.Context) {
 	}
 
 	if err := input.Validate(); err != nil {
-		sendErrorWitchMessage(c, err)
+		sendBadRequestMessage(c, err)
 		return
 	}
 
-	output, err := h.services.Auth.SignIn(&input)
+	output, err := h.service.Auth.SignIn(&input)
 	if err != nil {
 		sendInternalServerError(c, err)
 		return
@@ -29,7 +29,7 @@ func (h *Handler) SignIn(c *gin.Context) {
 }
 
 func (h *Handler) SignUp(c *gin.Context) {
-	var input models.InputSinUp
+	var input models.InputSignUp
 
 	if err := c.BindJSON(&input); err != nil {
 		sendBadRequestMessage(c, err)
@@ -41,7 +41,7 @@ func (h *Handler) SignUp(c *gin.Context) {
 		return
 	}
 
-	output, err := h.service.Auth.SigUp(&input)
+	output, err := h.service.Auth.SignUp(&input)
 	if err != nil {
 		sendInternalServerError(c, err)
 		return

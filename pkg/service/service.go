@@ -17,6 +17,10 @@ type Auth interface {
 	SignIn(input *models.InputSignIn) (*models.OutPutSignIn, error)
 	SignUp(input *models.InputSignUp) (*models.OutPutSignUp, error)
 }
+type Session interface {
+	GetAccount(hash string) (*models.Account, error)
+	Generate(login string) (string, error)
+}
 type Service struct {
 	Post          Post
 	Auth          Auth
